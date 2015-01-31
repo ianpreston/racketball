@@ -3,7 +3,8 @@
          ricochet
          follow
          kbcontrol
-         inertia)
+         inertia
+         respawn)
 (require "entity.rkt")
 (require "controls.rkt")
 
@@ -50,6 +51,16 @@
    (cond [(controls-w ctrls) 2]
          [(controls-s ctrls) -2]
          [else 0])))
+
+; respawn
+; 
+; Entity resets to center if it moves off of the screen on the X-axis
+(define (respawn ent new-ent)
+  (if (or (> (entity-x ent) 100)
+          (< (entity-x ent) 0))
+    (new-ent)
+    ent))
+
 
 ; inertia
 ;
