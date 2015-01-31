@@ -24,7 +24,6 @@
     (define/public (step)
       (set! state (gameupdate state ctrls))
       (refresh)
-      (sleep/yield 0.01)
       (queue-callback (lambda () (send this step)) #f))
 
     (define/public (startup)
