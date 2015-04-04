@@ -17,13 +17,24 @@
     (define gameupdate update)
     (define state initial-state)
     (define ctrls (controls #f #f))
+    (define lt (current-milliseconds))
+    (define dt 0)
 
     (inherit refresh with-gl-context swap-gl-buffers)
     (super-new)
 
-    (define/public (step)
+    (define/public (game-loop-iter)
       (set! state (gameupdate state ctrls))
-      (refresh)
+      (refresh))
+
+    (define/public (step)
+      (set! dt (- (current-milliseconds) lt))
+      (set! lt (current-milliseconds))
+      (let ([sleep-time (- 1/30 (/ dt 1000))])
+        (sleep/yield (max sleep-time 0)))
+
+      (send this game-loop-iter)
+
       (queue-callback (lambda () (send this step)) #f))
 
     (define/public (startup)
