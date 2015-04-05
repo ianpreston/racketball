@@ -30,14 +30,17 @@
         [y (entity-y ent)]
         [w (entity-width ent)]
         [h (entity-height ent)])
+    (gl-push-matrix)
+    (gl-translate x y 0.5)
     (gl-begin 'quads)
-    (gl-vertex x y)
-    (gl-vertex (+ x w) y)
-    (gl-vertex (+ x w) (+ y h))
-    (gl-vertex x (+ y h))
-    (gl-end)))
+    (gl-vertex 0 0)
+    (gl-vertex w 0)
+    (gl-vertex w h)
+    (gl-vertex 0 h)
+    (gl-end)
+    (gl-pop-matrix)))
 
-; new-pos/new-vel
+; new-pos/new-vel/new-score
 ;
 ; Transform the entity by returning a struct-copy of `ent`
 ; with vector property pos or el set to (vec2 `x` `y`)

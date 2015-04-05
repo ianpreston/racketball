@@ -49,7 +49,10 @@
 (define (rb-setup)
   (gl-matrix-mode 'projection)
   (gl-load-identity)
-  (gl-ortho 0 100 0 100 -1 1))
+  (gl-ortho 0 100 0 100 -1.0 0.0)
+  (gl-matrix-mode 'modelview)
+  (gl-load-identity)
+  (gl-enable 'depth-test))
 
 (define (rb-render state)
   (gl-clear-color 0.0 0.0 0.0 0.0)
