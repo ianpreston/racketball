@@ -3,6 +3,7 @@
 (require sgl)
 (require "entity.rkt")
 (require "mechanics.rkt")
+(require "scoreboard.rkt")
 
 
 (define (create-ball)
@@ -57,4 +58,9 @@
 (define (rb-render state)
   (gl-clear-color 0.0 0.0 0.0 0.0)
   (gl-clear 'color-buffer-bit 'depth-buffer-bit)
-  (for-each render-entity state))
+
+  (for-each render-entity state)
+
+  (match-define (list ball player enemy) state)
+  (render-score-for player 5)
+  (render-score-for enemy 90))
