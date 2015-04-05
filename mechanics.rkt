@@ -4,9 +4,11 @@
          follow
          kbcontrol
          inertia
-         respawn)
+         respawn-if
+         score-if)
 (require "entity.rkt")
 (require "controls.rkt")
+
 
 ; bounce
 ;
@@ -52,15 +54,19 @@
          [(controls-s ctrls) -2]
          [else 0])))
 
-; respawn
+; respawn-if
 ; 
-; Entity resets to center if it moves off of the screen on the X-axis
-(define (respawn ent new-ent)
-  (if (or (> (entity-x ent) 100)
-          (< (entity-x ent) 0))
-    (new-ent)
-    ent))
+; Entity respawns (is replaced by the result of `new-ent`) if
+; (`cnd` `ent`) evaluates true
+(define (respawn-if ent cnd new-ent)
+  (if (cnd ent) (new-ent) ent))
 
+; score-if
+;
+; Entity's score is incremented if `cnd` is true
+(define (score-if ent cnd)
+  (if cnd (new-score ent (+ (entity-score ent) 1))
+          ent))
 
 ; inertia
 ;

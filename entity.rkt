@@ -8,12 +8,13 @@
          render-entity
          new-pos
          new-vel
+         new-score
          collides-aabb)
 (require sgl)
 
 
 (struct vec2 (x y))
-(struct entity (pos vel width height))
+(struct entity (pos vel width height score))
 
 (define (entity-x ent) (vec2-x (entity-pos ent)))
 (define (entity-y ent) (vec2-y (entity-pos ent)))
@@ -44,6 +45,8 @@
   (struct-copy entity ent [pos (vec2 x y)]))
 (define (new-vel ent x y)
   (struct-copy entity ent [vel (vec2 x y)]))
+(define (new-score ent ns)
+  (struct-copy entity ent [score ns]))
 
 ; collides-aabb
 ;
